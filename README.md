@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-# sls
 Secure LS
-=======
+=========
 # sls - remote directory listing via SSH (scp-style)
 
 A small utility that lists the contents of a remote directory over SSH
@@ -84,4 +82,3 @@ This follows the same remote-execution principle used by classic `scp`
 - Remote side must have a POSIX-compatible `ls`.
 - For recursive listings use the normal `ls` flags (`-R`).
 - Exit status is the exit status of the remote `ls` (or of `ssh` on connection failure).
->>>>>>> fba3eed (initial commit)
