@@ -1,0 +1,122 @@
+.TH SLS 1 "October 2026" "sls 0.1" "User Commands"
+.SH NAME
+sls \- remote directory listing via SSH (scp-style)
+.SH SYNOPSIS
+.B sls
+[\fIssh-options\fR] [\fIls-options\fR] [\fIuser\fR@]\fIhost\fR:\fIpath\fR
+.br
+.B sls
+[\fIssh-options\fR] [\fIls-options\fR] [\fIuser\fR@]\fIhost\fR
+.SH DESCRIPTION
+.B sls
+lists the contents of a remote directory over SSH using the same
+.IR user@host:path
+syntax as
+.BR scp (1).
+.PP
+SSH connection options are recognized and passed to
+.BR ssh (1).
+All remaining options are passed through to the remote
+.BR ls (1).
+.PP
+Authentication and connection details are handled entirely by the
+system
+.BR ssh (1)
+client, which automatically reads
+.BR ~/.ssh/config
+(including
+.BR Port ,
+.BR User ,
+.BR IdentityFile ,
+host aliases,
+.BR ProxyJump ,
+etc.).
+.SH OPTIONS
+.SS SSH options
+.TP
+.BR -P \fIport\fR
+Connect to the remote host on the specified port
+(overrides any Port in the config).
+.TP
+.BR -i \fIidentity_file\fR
+Identity (private key) file.
+.TP
+.BR -o \fIssh_option\fR
+Pass an extra option to ssh in the format used by
+.BR ssh_config (5).
+May be repeated.
+.TP
+.BR -F \fIssh_config\fR
+Use an alternate per-user SSH configuration file.
+.TP
+.BR -J \fIdestination\fR
+Connect via the given ProxyJump host.
+.TP
+.BR -4
+Force IPv4.
+.TP
+.BR -6
+Force IPv6.
+.TP
+.BR -C
+Enable compression.
+.TP
+.BR -v
+Verbose mode (debug output from ssh).
+.TP
+.BR -q
+Quiet mode.
+.SS ls options
+.TP
+.I ls-options
+Any options accepted by the remote
+.BR ls (1)
+(for example
+.BR -l ,
+.BR -a ,
+.BR -h ,
+.BR -R ,
+.BR --color=auto ).
+.SH EXAMPLES
+.TP
+List a remote directory in long format:
+.B sls -l user@example.com:/var/log
+.TP
+Non-standard port and specific key:
+.B sls -P 2222 -i ~/.ssh/id_ed25519 -la host:.
+.TP
+Disable host key checking for this call:
+.B sls -o StrictHostKeyChecking=no -h user@host
+.TP
+Via a jump host:
+.B sls -J bastion.example.com -la internal:/var
+.SH EXIT STATUS
+The exit status is that of the remote
+.BR ls (1)
+(or of
+.BR ssh (1)
+on connection failure).
+.SH SEE ALSO
+.BR ls (1),
+.BR scp (1),
+.BR ssh (1),
+.BR ssh_config (5)
+.SH AUTHOR
+Aki Korhonen <spammagnet@eibrak.com>
+.SH COPYRIGHT
+Copyright \(co 2026 Aki Korhonen.
+.br
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.SH LICENSE
+SPDX-License-Identifier: GPL-2.0-or-later
+.SH NOTES
+Requires a working
+.BR ssh (1)
+in
+.BR $PATH .
+The remote system must provide a POSIX-compatible
+.BR ls (1).
+All
+.B ~/.ssh/config
+rules are respected.

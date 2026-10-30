@@ -1,0 +1,23 @@
+# Build artifacts
+sls
+*.o
+*.a
+*.so
+*.out
+
+# Editor / IDE
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.log
+/tmp/
