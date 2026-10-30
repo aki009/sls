@@ -1,5 +1,3 @@
-Secure LS
-=========
 # sls - remote directory listing via SSH (scp-style)
 
 A small utility that lists the contents of a remote directory over SSH
@@ -17,17 +15,30 @@ Aki Korhonen <spammagnet@eibrak.com>
 
 See the copyright header in `sls.c` and the full text in `COPYING`.
 
-## Build
+## Installation
+
+### Homebrew (macOS / Linux)
+
+```bash
+brew tap aki009/sls
+brew install sls
+```
+
+### From source
+
+```bash
+git clone https://github.com/aki009/sls.git
+cd sls
+make
+make install
+```
+
+(`make install` installs the binary and man page; use `sudo make install` if you are installing system-wide.)
+
+Or just compile:
 
 ```bash
 gcc -Wall -Wextra -O2 -o sls sls.c
-```
-
-Or use the included Makefile:
-
-```bash
-make
-make install
 ```
 
 ## Usage
